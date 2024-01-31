@@ -13,9 +13,9 @@ docker compose exec app composer global require laravel/installer
 docker compose exec app composer create-project --prefer-dist laravel/laravel /var/www/tmp && mv -f /var/www/tmp/{.,}* /var/www && rm -rf /var/www/tmp/
 ```
 
-
-
-
+```bash 
+docker compose exec app /bin/bash
+```
 
 
 sudo chown -R rjbgaspar /home/rjbgaspar/.composer
