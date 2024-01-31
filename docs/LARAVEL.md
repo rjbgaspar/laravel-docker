@@ -13,14 +13,20 @@ docker compose exec app composer global require laravel/installer
 docker compose exec app composer create-project --prefer-dist laravel/laravel /var/www/tmp && mv -f /var/www/tmp/{.,}* /var/www && rm -rf /var/www/tmp/
 ```
 
+### Step by step
+
+
 ```bash 
 docker compose exec app /bin/bash
 ```
+```
+composer create-project --prefer-dist laravel/laravel /var/www/tmp
+mv -f /var/www/tmp/{.,}* /var/www
+rm -rf /var/www/tmp/
+```
+Update db env
 
-
-sudo chown -R rjbgaspar /home/rjbgaspar/.composer
-
-
+### Laravel not found 
 
 ```bash
 nano ~/.bash_profile 
