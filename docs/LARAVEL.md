@@ -32,5 +32,3 @@ Update db env
 nano ~/.bash_profile 
 export PATH=~/.composer/vendor/bin:$PATH
 ```
-
-nano ~/.bash_profile docker compºose down
