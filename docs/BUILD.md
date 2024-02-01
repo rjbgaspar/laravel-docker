@@ -124,27 +124,28 @@ With all the preparatory steps complete, create a Docker Compose YAML file that 
 nano docker-compose.yml
 ```
 2. Paste the following code and replace the values in square brackets with your actual values:
+
 ```yml
 version: "3.7"
 services:
   app:
     build:
       args:
-        user: [current-user]
+        user: [ current-user ]
         uid: 1000
-      context: ./
-      dockerfile: Dockerfile
-    image: [image-name]
-    container_name: [container-name]
+      context: ..
+      dockerfile: ../Dockerfile
+    image: [ image-name ]
+    container_name: [ container-name ]
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
-      - [network-name]
+      - [ network-name ]
   db:
     image: mysql:8.0
-    container_name: [db-container-name]
+    container_name: [ db-container-name ]
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -156,10 +157,10 @@ services:
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
-      - [network-name]
+      - [ network-name ]
   nginx:
     image: nginx:alpine
-    container_name: [nginx-container-name]
+    container_name: [ nginx-container-name ]
     restart: unless-stopped
     ports:
       - 8000:80
@@ -167,9 +168,9 @@ services:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - [network-name]
+      - [ network-name ]
 networks:
-  [network-name]:
+  [ network-name ]:
     driver: bridge
 ```
 
