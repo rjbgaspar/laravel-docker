@@ -16,19 +16,31 @@ class LoginController extends Controller
         // Later versions require the openid scope for all requests.
         // e.g return Socialite::driver('keycloak')->scopes(['openid'])->redirect();
         return Socialite::driver('keycloak')
-            ->with(['redirect_uri' => 'http://localhost:8000/ok'])
+            // ->with(['redirect_uri' => 'http://localhost:8000/ok'])
             ->scopes(['openid', 'profile', 'email', 'offline_access'])
-            ->redirect('http://localhost:8000/welcome');
+            ->redirect();
 
     }
 
     public function handleKeycloakCallback()
     {
+        $keycloakUser = Socialite::driver('keycloak')->user();
 
-        dd(Socialite::driver('keycloak'));
+        $user = User::firstOrNew(['keycloak_id' => $keycloakUser->id]);
+        $user->name = $keycloakUser->name;
+        $user->email = $keycloakUser->email;
+        $user->keycloak_id = $keycloakUser->id;
+        $user->password = ''; // You may want to handle password logic appropriately
+        $user->save();
 
-        $user = Socialite::driver('keycloak')->user();
-        //return Socialite::driver('keycloak')->scopes([])->redirect();
+
+
+        Auth::login($user);
+
+        return redirect('/dashboard');
+
+
+
 
         //             scope:  # last one for refresh tokens
 

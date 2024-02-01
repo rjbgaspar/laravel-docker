@@ -24,12 +24,12 @@ Route::get('login/keycloak/callback', 'App\Http\Controllers\Auth\LoginController
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('Dashboard', ['name' => 'Julia']);
+        $user = auth()->user();
+        return view('Dashboard', [ 'user' => $user]);
     });
 });
 
 Route::get('/ok', function () {
     $user = Socialite::driver('keycloak')->user();
-
     return view('ok',  [ 'user' => $user]);
 });
