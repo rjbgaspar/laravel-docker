@@ -32,3 +32,5 @@ Update db env
 nano ~/.bash_profile 
 export PATH=~/.composer/vendor/bin:$PATH
 ```
+
+composer create-project --prefer-dist laravel/laravel /var/www/tmp && mv -f /var/www/tmp/{.,}* /var/www && rm -rf /var/www/tmp/ 

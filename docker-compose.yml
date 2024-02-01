@@ -14,7 +14,7 @@ services:
     volumes:
       - ./:/var/www
     networks:
-      -  laravel_default
+      - laravel_default
   db:
     image: mysql:8.0
     container_name: laravel-test-db
@@ -29,7 +29,7 @@ services:
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
-      -  laravel_default
+      - laravel_default
   nginx:
     image: nginx:alpine
     container_name: laravel-test-nginx
@@ -40,7 +40,24 @@ services:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      -  laravel_default
+      - laravel_default
+  keycloak:
+      image: quay.io/keycloak/keycloak:19.0.1
+      command: ["start-dev --import-realm"]
+      volumes:
+          - ./docker-compose/realm-config:/opt/keycloak/data/import
+      environment:
+          - KC_DB=dev-file
+          - KEYCLOAK_ADMIN=admin
+          - KEYCLOAK_ADMIN_PASSWORD=admin
+          - KC_FEATURES=scripts
+          - KC_HTTP_PORT=9080
+          - KC_HTTPS_PORT=9443
+      ports:
+          - 9080:9080
+          - 9443:9443
+      networks:
+          - laravel_default
 networks:
-   laravel_default:
-    driver: bridge
+    laravel_default:
+        driver: bridge

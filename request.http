@@ -1,0 +1,9 @@
+# Name: token_from_authorize_code
+POST http://keycloak:9080/realms/jhipster/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client&client_id=laravel&client-secret=FY6UQuwufNVlHzPEbggAO9f8nBUwQdy0
+###
+
+
+/// grant_type=authorization_code&client_id=laravel&client-secret=FY6UQuwufNVlHzPEbggAO9f8nBUwQdy0&code={{authorize_code}}
