@@ -25,6 +25,8 @@ class LoginController extends Controller
     public function handleKeycloakCallback()
     {
         $keycloakUser = Socialite::driver('keycloak')->user();
+//        dd($keycloakUser);
+
 
         $user = User::firstOrNew(['keycloak_id' => $keycloakUser->id]);
         $user->name = $keycloakUser->name;

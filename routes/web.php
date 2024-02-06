@@ -21,11 +21,13 @@ Route::get('/', function () {
 // Routes for Keycloak login and callback:
 Route::get('login/keycloak', 'App\Http\Controllers\Auth\LoginController@redirectToKeycloak')->name('login.keycloak');
 Route::get('login/keycloak/callback', 'App\Http\Controllers\Auth\LoginController@handleKeycloakCallback');
-Route::get('logout/keycloak', 'App\Http\Controllers\Auth\LogoutController@logout')->name('logout.keycloak');;
+// Routes for Keycloak login and callback:
+Route::post('logout/keycloak', 'App\Http\Controllers\Auth\LogoutController@logout')->name('logout.keycloak');;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
+//        dd($user);
         return view('Dashboard', [ 'user' => $user]);
     });
 });

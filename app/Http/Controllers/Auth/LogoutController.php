@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Config;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -15,11 +16,12 @@ class LogoutController extends Controller
         Auth::logout();
 
         // The user will not be redirected back.
-        return redirect(Socialite::driver('keycloak')->getLogoutUrl());
+        //return redirect(Socialite::driver('keycloak')->getLogoutUrl()); // "http://keycloak:9080/realms/jhipster/protocol/openid-connect/logout"
+
+
 
         // The URL the user is redirected to after logout.
-        $redirectUri = Config::get('app.url');
-
+        $redirectUri = \Illuminate\Support\Facades\Config::get('app.url');
         // Keycloak v18+ does support a post_logout_redirect_uri in combination with a
         // client_id or an id_token_hint parameter or both of them.
         // NOTE: You will need to set valid post logout redirect URI in Keycloak.
