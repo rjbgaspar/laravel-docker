@@ -13,13 +13,25 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->uuid('keycloak_id')->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            // SPE Begin Keycloak integration
+            $table->uuid('kc_id');
+            $table->string('kc_login', 50);
+            $table->string('kc_first_name', 50)->nullable();
+            $table->string('kc_last_name', 50)->nullable();
+            $table->string('kc_email', 191)->nullable();
+            $table->string('kc_image_url', 256)->nullable();
+            $table->boolean('kc_activated');
+            $table->string('kc_lang_key', 10)->nullable();
+            $table->string('kc_created_by', 50);
+            $table->dateTime('kc_created_date')->nullable();
+            $table->text('kc_authorities')->nullable();
+            // SPE End Keycloak integration
         });
     }
 

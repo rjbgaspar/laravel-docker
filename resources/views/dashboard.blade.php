@@ -10,5 +10,7 @@
             {{-- Display something else if the user is not authenticated --}}
         @endif
         <h1>Hello, {{ $user->name }}</h1>
+
+        <h1>{{ $user->kc_authorities }}</h1>
     </body>
 </html>
