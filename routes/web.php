@@ -15,7 +15,9 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+    $user = auth()->user();
+    return view('home', [ 'user' => $user]);
 });
 
 // Routes for Keycloak login and callback:
@@ -24,15 +26,28 @@ Route::get('login/keycloak/callback', 'App\Http\Controllers\Auth\LoginController
 // Routes for Keycloak login and callback:
 Route::post('logout/keycloak', 'App\Http\Controllers\Auth\LogoutController@logout')->name('logout.keycloak');;
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
+
+// Apply Middleware
+Route::middleware(['auth', 'check.role:ROLE_ADMIN'])->group(function () {
+    Route::get('/admin', function () {
         $user = auth()->user();
-//        dd($user);
-        return view('Dashboard', [ 'user' => $user]);
+        return view('admin', [ 'user' => $user]);
+    });
+});
+Route::middleware(['auth', 'check.role:ROLE_USER'])->group(function () {
+    Route::get('/user', function () {
+        $user = auth()->user();
+        return view('user', [ 'user' => $user]);
     });
 });
 
-Route::get('/ok', function () {
-    $user = Socialite::driver('keycloak')->user();
-    return view('ok',  [ 'user' => $user]);
-});
+
+
+// Define No Access Route
+Route::get('/no-access', function () {
+    return "You don't have access to this resource.";
+})->name('no-access');
+
+
+
+

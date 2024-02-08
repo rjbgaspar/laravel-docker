@@ -39,7 +39,7 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/');
 
         //             scope:  # last one for refresh tokens
 
