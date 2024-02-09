@@ -24,8 +24,7 @@ Route::get('/', function () {
 Route::get('login/keycloak', 'App\Http\Controllers\Auth\LoginController@redirectToKeycloak')->name('login.keycloak');
 Route::get('login/keycloak/callback', 'App\Http\Controllers\Auth\LoginController@handleKeycloakCallback');
 // Routes for Keycloak logout
-Route::post('logout/keycloak', 'App\Http\Controllers\Auth\LogoutController@logout')->name('logout.keycloak');;
-
+Route::post('logout/keycloak', 'App\Http\Controllers\Auth\LogoutController@logout')->name('logout.keycloak');
 
 // Apply Middleware
 Route::middleware(['auth', 'check.role:ROLE_ADMIN'])->group(function () {
