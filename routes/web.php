@@ -23,7 +23,7 @@ Route::get('/', function () {
 // Routes for Keycloak login and callback:
 Route::get('login/keycloak', 'App\Http\Controllers\Auth\LoginController@redirectToKeycloak')->name('login.keycloak');
 Route::get('login/keycloak/callback', 'App\Http\Controllers\Auth\LoginController@handleKeycloakCallback');
-// Routes for Keycloak login and callback:
+// Routes for Keycloak logout
 Route::post('logout/keycloak', 'App\Http\Controllers\Auth\LogoutController@logout')->name('logout.keycloak');;
 
 
@@ -41,13 +41,7 @@ Route::middleware(['auth', 'check.role:ROLE_USER'])->group(function () {
     });
 });
 
-
-
 // Define No Access Route
 Route::get('/no-access', function () {
     return "You don't have access to this resource.";
 })->name('no-access');
-
-
-
-
