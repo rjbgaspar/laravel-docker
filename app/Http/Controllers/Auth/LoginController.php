@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -39,11 +39,16 @@ class LoginController extends Controller
 
         Auth::login($user);
 
+        // Retrieve the session instance
+        $session = Session::getFacadeRoot();
+        // Check if the "url" intended attribute exists in the session attributes
+        if ($session->has('url.intended')) {
+            // Get the value of the "url" intended attribute
+            return redirect($session->get('url.intended'));
+        }
         return redirect('/');
 
-        //             scope:  # last one for refresh tokens
-
-
+        // scope:  # last one for refresh tokens
 
         // this line will be needed if you have an exist Eloquent database User
         // then you can user user data gotten from keycloak to query such table
@@ -51,8 +56,7 @@ class LoginController extends Controller
         //$existingUser = User::where('email', $user->email)->first();
 
         // ... your desire implementation comes here
-
-        return redirect()->intended('/whatever-your-route-look-like');
+        // return redirect()->intended('/whatever-your-route-look-like');
     }
 
     /**
